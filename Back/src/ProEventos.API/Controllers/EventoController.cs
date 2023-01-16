@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ProEventos.API.Data;
 using ProEventos.API.Models;
 //dotnet watch run
 /// <Explicação geral do arquivo>
@@ -18,36 +19,11 @@ namespace ProEventos.API.Controllers
     [Route("api/[controller]")]
     public class EventoController : ControllerBase
     {
-        /// <Explicação da classe Evento>
-        /// Criação e instanciação da classe evento de forma explicita para fins de 
-        /// teste e desinvolvimento
-        /// </summary>
-        public IEnumerable<Evento> _evento = new Evento[]
-            {
-              new Evento()
-              {
-                EventoID = 1,
-                Local = "Cuiabá",
-                Data = DateTime.Now.AddDays(2).ToString("dd/mm/yyyy") ,
-                Tema = "Programação",
-                QtdPessoas = 250,
-                Lote = "1º lote",
-                ImageURL = "foto.png"
-              }, 
-              new Evento()
-              {
-                EventoID = 2,
-                Local = "São Paulo",
-                Data = DateTime.Now.AddDays(2).ToString("dd/mm/yyyy") ,
-                Tema = "Culinaria",
-                QtdPessoas = 150,
-                Lote = "3º lote",
-                ImageURL = "Outra_Foto.png"
-              }
-            };
+        private readonly DataContext _context;
 
-        public EventoController()
+        public EventoController(DataContext context)
         {
+            _context = context;
         }
 
 /// <Request de Get>
@@ -60,13 +36,16 @@ namespace ProEventos.API.Controllers
         [HttpGet]
         public IEnumerable<Evento> Get()
         {
-            return _evento;
+            return _context.Eventos;
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<Evento> GetById(int id)
+        public Evento GetById(int id)
         {
-            return _evento.Where(evento => evento.EventoID == id);
+            return _context.Eventos.FirstOrDefault
+            (
+                evento => evento.EventoID == id
+            );
         }
 
 // Fim do Request do Get

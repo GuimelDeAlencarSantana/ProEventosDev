@@ -4,8 +4,31 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+<!-- 
+Este arquivo Csproj tem a função de gerar as referências do projeto
+Para a utilização do EntityFrameworkCore e seus designs, ferramentas e
+funcionalidades para com o Sqlite 
+-->  
+<!-- O Entity framework Core é uma Api que permite que os 
+desenvolvedores do .NET trabalhem com um banco de dados-->
+
+<!-- Os 4 PackageReference que se seguem são responsáveis pelo download
+das partes do Entity Framework Code Design, Tools e Um auxílio para uso
+com Sqlite -->
+
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
+    <IncludeAssets>runtime; build; native; contentfiles; analyzers; bildtransitive</IncludeAssets>
+    <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.2">
+    <IncludeAssets>runtime; build; native; contentfiles; analyzers; bildtransitive</IncludeAssets>
+    <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+
   </ItemGroup>
 
 </Project>
